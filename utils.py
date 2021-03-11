@@ -3,11 +3,11 @@ import numpy as np
 
 REL_WIDTH_LOW = 1.25
 REL_WIDTH_HIGH = 3
-DIST_THRESHOLD = 350
+DIST_THRESHOLD = 400
 DIGIT_SHAPE = (30, 50)
 MIN_CONTOUR_AREA = 150
 MAX_PIXEL_VALUE = 255.0
-CLUSTER_THRESHOLD = 20.0
+CLUSTER_THRESHOLD = 50.0
 
 
 def monitor_display(knn_model, display):
@@ -55,8 +55,8 @@ def sort_and_group_digits(digits):
 
 def group_digits_around_idx(digits, idx):
     digit_ref = digits[idx]
-    digits_subset = [digit for digit in digits if
-                     np.abs(digit[1] - digit_ref[1]) + np.abs(digit[2] - digit_ref[2]) < CLUSTER_THRESHOLD]
+    l1_dist = [np.abs(digit[1]-digit_ref[1]) + np.abs(digit[2]-digit_ref[2]) for digit in digits]
+    digits_subset = [digits[k] for k in range(len(digits)) if l1_dist[k] <= CLUSTER_THRESHOLD]
     if len(digits_subset) > 1:
         digits_subset = sorted(digits_subset, key=lambda digit: -digit[1])
     digits_subset = int(np.sum([digits_subset[k][0] * (10.0 ** k) for k in range(len(digits_subset))]))
