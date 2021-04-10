@@ -33,7 +33,7 @@ class Engine:
         for lane in self.lanes:
             if digits_new[lane] == digits_old[lane]:
                 self.counters[lane] += 1
-                print(f"Lane <{lane}> frozen for {self.counters[lane] * self.step_time} seconds.")
+                print("Lane <" + str(lane) + "> frozen for " + str(self.counters[lane] * self.step_time) + "seconds.")
             else:
                 self.counters[lane] = 0
 
@@ -47,7 +47,7 @@ class Engine:
         print("Turn alarm on!")
         self.switch.turn_on()
         time.sleep(0.1)
-        print(f"Wait for {self.wait_time} seconds.")
+        print("Wait for " + str(self.wait_time) + " seconds.")
         time.sleep(self.wait_time)
         print("Turn alarm off!")
         time.sleep(0.1)
