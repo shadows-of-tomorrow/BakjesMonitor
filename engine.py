@@ -8,6 +8,7 @@ from utils import monitor_display
 class Engine:
 
     def __init__(self):
+        self.looping = True
         self.lanes = ['top_left', 'top_right']
         self.counters = self._construct_counters()
         self.knn = construct_knn_model()
@@ -60,7 +61,10 @@ class Engine:
     def run(self):
         self.switch.turn_off()
         digits_old = self._get_digits()
-        while True:
+        while self.looping:
+            if not self.looping:
+                self._reset_counters()
+                break
             time.sleep(self.step_time)
             try:
                 digits_new = self._get_digits()
