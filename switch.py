@@ -1,19 +1,22 @@
+import os
+import json
 import tinytuya
-import time
-
-CONFIG = {
-    "ID": "3000740610521cf2b72f",
-    "IP": "192.168.8.114",
-    "KEY": "9b48427497764819"
-}
 
 
 class Switch:
 
-    def __init__(self):
-        self.tuya = tinytuya.OutletDevice(CONFIG["ID"], CONFIG["IP"], CONFIG["KEY"])
+    def __init__(self, switch_id):
+        self.switch_id = switch_id
+        self.tuya = self._read_tuya_config()
         self.tuya.set_version(3.3)
         self.tuya.set_dpsUsed({"1": None})
+
+    def _read_tuya_config(self):
+        root_dir = os.path.dirname(__file__)
+        config_dir = os.path.join(root_dir, 'config')
+        with open(config_dir+'/tuya.txt') as f:
+            config = json.loads(f.read())[self.switch_id]
+        return tinytuya.OutletDevice(config['ID'], config['IP'], config['KEY'])
 
     def turn_on(self):
         self.tuya.set_status(True)
