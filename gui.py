@@ -52,13 +52,13 @@ class GUI:
         monitoring_text = tk.Label(self.main_window, text="Status:", bg="white")
         monitoring_text.place(x=10, y=250)
         monitoring_label = tk.Label(self.main_window, text="Paused", fg="red", bg="white")
-        monitoring_label.place(x=50, y=250)
+        monitoring_label.place(x=60, y=250)
 
         # Add alarm label.
         alarm_text = tk.Label(self.main_window, text="Alarm:", bg="white")
         alarm_text.place(x=10, y=270)
         alarm_label = tk.Label(self.main_window, text="Off", fg="green", bg="white")
-        alarm_label.place(x=50, y=270)
+        alarm_label.place(x=60, y=270)
 
         # Add dynamic updating.
         def update_values():
