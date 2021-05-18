@@ -14,9 +14,15 @@ class Scraper:
         self.wait_interval = 0.20
 
     def run(self):
-        time.sleep(self.wait_interval)
-        display = self.camera.capture()
-        cv2.imwrite(f"{self.data_path}\\{time.time() * 1000}.png", display)
+        while True:
+            time.sleep(self.wait_interval)
+            try:
+                display = self.camera.capture()
+                image_path = f"{self.data_path}/{time.time() * 1000}.png"
+                print(f"Writing {image_path} to disk...")
+                cv2.imwrite(image_path , display)
+            except Exception as e:
+                print(f"Failed: {e}")
 
 
 if __name__ == "__main__":
