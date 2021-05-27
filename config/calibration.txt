@@ -1,5 +1,0 @@
-{
-	"step_time": 0.30,
-	"stop_steps": 4,
-	"wait_time": 8.00,
-}
