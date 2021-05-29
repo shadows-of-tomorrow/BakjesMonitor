@@ -43,25 +43,29 @@ class DisplayProcessor:
         digits = []
         display = self._preprocess_display(display)
         contours = self._find_contours(display)
-        class_time = 0.0
+        roi_time = 0.0
         for cnt in contours:
             cnt_area = cv2.contourArea(cnt)
             if self.min_contour_area < cnt_area < self.max_contour_area:
                 [x, y, w, h] = cv2.boundingRect(cnt)
                 if self.rel_width_low < h / w <= self.rel_width_high:
-                    roi = display[y:y + h, x:x + w]
-                    roi = cv2.resize(roi, (self.digit_shape, self.digit_shape)) / 255.0
-                    roi = roi.reshape((1, self.digit_shape, self.digit_shape, 1))
-                    roi = np.float32(roi)
                     start = time.time()
-                    digit_pred = self._call_classifier(roi)
+                    roi = self._extract_roi(display, x, y, w, h)
                     end = time.time()
-                    class_time += (end-start)
-                    if np.max(digit_pred) >= self.prediction_threshold:
-                        digit = np.argmax(digit_pred)
+                    roi_time += (end-start)
+                    y_clf = self._call_classifier(roi)
+                    if np.max(y_clf) >= self.prediction_threshold:
+                        digit = np.argmax(y_clf)
                         digits.append([digit, x, y])
-        print(f"Classifier calls took {class_time}s")
+        print(f'Time spent extracting roi: {roi_time}')
         return digits
+
+    def _extract_roi(self, display, x, y, w, h):
+        roi = display[y:y + h, x:x + w]
+        roi = cv2.resize(roi, (self.digit_shape, self.digit_shape)) / 255.0
+        roi = roi.reshape((1, self.digit_shape, self.digit_shape, 1))
+        roi = np.float32(roi)
+        return roi
 
     def _sort_and_group_digits(self, digits):
         if len(digits) > 0:
