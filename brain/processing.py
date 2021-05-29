@@ -123,9 +123,9 @@ class DisplayProcessor:
 
     def _preprocess_display(self, image):
         image = self._threshold_image(image)
-        image = self._rotate_image(image)
         image = self._crop_image(image)
         image = self._strip_center(image)
+        image = self._rotate_image(image)
         return image
 
     def _rotate_image(self, image):
