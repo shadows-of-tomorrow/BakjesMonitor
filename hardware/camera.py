@@ -1,5 +1,4 @@
 import picamera
-import cv2
 import numpy as np
 
 
@@ -14,6 +13,4 @@ class Camera:
     def capture(self):
         img = self.empty_trgt
         self.camera.capture(img, 'bgr')
-        cv2.imshow('e', img)
-        cv2.waitKey(0)
         return img

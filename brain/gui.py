@@ -8,6 +8,8 @@ class GUI:
     def __init__(self, engine):
         self.engine = engine
         self.config_path = "./config/config.json"
+        self.h = 400
+        self.w = 800
         self._construct_main_window()
 
     def _construct_main_window(self):
@@ -16,7 +18,7 @@ class GUI:
 
         # Configure window settings.
         self.main_window.title("Bakjes Monitor v2.0")
-        self.main_window.geometry("800x480")
+        self.main_window.geometry(f"{self.h}x{self.w}")
         self.main_window.configure(bg='white')
 
         # Add alu baba logo.
@@ -28,7 +30,7 @@ class GUI:
         # Add shadows of tomorrow logo.
         background_img = tk.PhotoImage(file="./img/icons/shdws80.png")
         background_label = tk.Label(self.main_window, image=background_img, bg='white')
-        background_label.place(x=700, y=25)
+        background_label.place(x=self.w-100, y=25)
         background_label.image = background_img
 
         # Add buttons to main window.
@@ -52,15 +54,15 @@ class GUI:
 
         # Add status label.
         monitoring_text = tk.Label(self.main_window, text="Status:", bg="white", font=("Arial", 18))
-        monitoring_text.place(x=40, y=430)
+        monitoring_text.place(x=40, y=self.h-50)
         monitoring_label = tk.Label(self.main_window, text="Paused", fg="red", bg="white", font=("Arial", 18))
-        monitoring_label.place(x=130, y=430)
+        monitoring_label.place(x=130, y=self.h-50)
 
         # Add alarm label.
         alarm_text = tk.Label(self.main_window, text="Alarm:", bg="white", font=("Arial", 18))
-        alarm_text.place(x=40, y=400)
+        alarm_text.place(x=40, y=self.h-80)
         alarm_label = tk.Label(self.main_window, text="Off", fg="green", bg="white", font=("Arial", 18))
-        alarm_label.place(x=130, y=400)
+        alarm_label.place(x=130, y=self.h-80)
 
         # Add dynamic updating.
         def update_values():
@@ -101,19 +103,19 @@ class GUI:
         # Add settings button.
         settings_button_img = tk.PhotoImage(file="./img/icons/settings.png")
         settings_button = tk.Button(self.main_window, command=self.settings, image=settings_button_img, bg='white', height=50, width=50)
-        settings_button.place(x=570, y=410)
+        settings_button.place(x=570, y=self.h-70)
         settings_button.image = settings_button_img
 
         # Add pause button.
         pause_button_img = tk.PhotoImage(file="./img/icons/pause.png")
         pause_button = tk.Button(self.main_window, command=self.pause, image=pause_button_img, bg='white', height=50, width=50)
-        pause_button.place(x=630, y=410)
+        pause_button.place(x=630, y=self.h-70)
         pause_button.image = pause_button_img
 
         # Add play button.
         play_button_img = tk.PhotoImage(file="./img/icons/play.png")
         play_button = tk.Button(self.main_window, command=self.play, image=play_button_img, bg='white', height=50, width=50)
-        play_button.place(x=690, y=410)
+        play_button.place(x=690, y=self.h-70)
         play_button.image = play_button_img
 
     def _construct_settings_window(self):

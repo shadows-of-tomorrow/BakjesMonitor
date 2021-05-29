@@ -27,14 +27,8 @@ class DisplayProcessor:
         self.digit_clf = self._load_digit_classifier()
 
     def extract_digits(self, display):
-        start = time.time()
         digits_raw = self._find_digits(display)
-        end = time.time()
-        print(f"Getting raw digits: {round(end-start, 4)}")
-        start = time.time()
         digits_clean = self._sort_and_group_digits(digits_raw)
-        end = time.time()
-        print(f"Cleaning raw digits: {round(end-start, 4)}")
         return digits_clean
 
     def _call_classifier(self, x):
