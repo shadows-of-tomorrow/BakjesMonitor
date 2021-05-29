@@ -27,8 +27,14 @@ class DisplayProcessor:
         self.digit_clf = self._load_digit_classifier()
 
     def extract_digits(self, display):
+        start = time.time()
         digits_raw = self._find_digits(display)
+        end = time.time()
+        print(f"Getting raw digits: {round(end-start, 4)}")
+        start = time.time()
         digits_clean = self._sort_and_group_digits(digits_raw)
+        end = time.time()
+        print(f"Cleaning raw digits: {round(end-start, 4)}")
         return digits_clean
 
     def _call_classifier(self, x):
@@ -43,21 +49,16 @@ class DisplayProcessor:
         digits = []
         display = self._preprocess_display(display)
         contours = self._find_contours(display)
-        roi_time = 0.0
         for cnt in contours:
             cnt_area = cv2.contourArea(cnt)
             if self.min_contour_area < cnt_area < self.max_contour_area:
                 [x, y, w, h] = cv2.boundingRect(cnt)
                 if self.rel_width_low < h / w <= self.rel_width_high:
-                    start = time.time()
                     roi = self._extract_roi(display, x, y, w, h)
-                    end = time.time()
-                    roi_time += (end-start)
                     y_clf = self._call_classifier(roi)
                     if np.max(y_clf) >= self.prediction_threshold:
                         digit = np.argmax(y_clf)
                         digits.append([digit, x, y])
-        print(f'Time spent extracting roi: {roi_time}')
         return digits
 
     def _extract_roi(self, display, x, y, w, h):

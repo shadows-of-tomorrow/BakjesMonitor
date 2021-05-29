@@ -47,11 +47,8 @@ class Engine:
         return counters
 
     def _get_digits(self):
-        start = time.time()
         display = self.camera.capture()
         digits = self.display_processor.extract_digits(display)
-        end = time.time()
-        print(f"Getting digits took: {end-start}s")
         return digits
 
     def _update_counters(self, digits_old, digits_new):
