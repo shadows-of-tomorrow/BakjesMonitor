@@ -42,10 +42,8 @@ class DisplayProcessor:
     def _find_digits(self, display):
         digits = []
         display = self._preprocess_display(display)
-        start = time.time()
         contours = self._find_contours(display)
-        end = time.time()
-        print(f"Finding contours takes {end-start}s")
+        class_time = 0.0
         for cnt in contours:
             cnt_area = cv2.contourArea(cnt)
             if self.min_contour_area < cnt_area < self.max_contour_area:
@@ -55,10 +53,14 @@ class DisplayProcessor:
                     roi = cv2.resize(roi, (self.digit_shape, self.digit_shape)) / 255.0
                     roi = roi.reshape((1, self.digit_shape, self.digit_shape, 1))
                     roi = np.float32(roi)
+                    start = time.time()
                     digit_pred = self._call_classifier(roi)
+                    end = time.time()
+                    class_time += (end-start)
                     if np.max(digit_pred) >= self.prediction_threshold:
                         digit = np.argmax(digit_pred)
                         digits.append([digit, x, y])
+        print(f"Classifier calls took {class_time}s")
         return digits
 
     def _sort_and_group_digits(self, digits):
