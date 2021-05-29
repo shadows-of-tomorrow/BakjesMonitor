@@ -47,7 +47,10 @@ class Engine:
         return counters
 
     def _get_digits(self):
+        start = time.time()
         display = self.camera.capture()
+        end = time.time()
+        print(f"Taking camera snapshot: {round(end-start, 4)}")
         digits = self.display_processor.extract_digits(display)
         return digits
 
