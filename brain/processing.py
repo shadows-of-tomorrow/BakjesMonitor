@@ -1,5 +1,6 @@
 import cv2
 import json
+import time
 import scipy.ndimage
 import numpy as np
 import tensorflow as tf
@@ -40,7 +41,10 @@ class DisplayProcessor:
 
     def _find_digits(self, display):
         digits = []
+        start = time.time()
         display = self._preprocess_display(display)
+        end = time.time()
+        print(f"Preprocessing takes {end-start}s")
         contours = self._find_contours(display)
         for cnt in contours:
             cnt_area = cv2.contourArea(cnt)
@@ -118,9 +122,9 @@ class DisplayProcessor:
         return np.argmax([xs[k] + ys[k] for k in range(len(xs))])
 
     def _preprocess_display(self, image):
-        image = self._rotate_image(image) # Todo: This is very slow, remove or change.
-        image = self._crop_image(image)
         image = self._threshold_image(image)
+        image = self._rotate_image(image)
+        image = self._crop_image(image)
         image = self._strip_center(image)
         return image
 

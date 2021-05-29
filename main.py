@@ -16,6 +16,8 @@ def main():
     run_mode = parse_args()
     if run_mode == 'gui':
         GUI(engine=Engine()).run()
+    elif run_mode == 'engine':
+        Engine().run()
     elif run_mode == 'cropping':
         CropHelper().run()
     else:
