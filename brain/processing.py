@@ -1,6 +1,5 @@
 import cv2
 import json
-import time
 import scipy.ndimage
 import numpy as np
 import tensorflow as tf
@@ -119,22 +118,10 @@ class DisplayProcessor:
         return np.argmax([xs[k] + ys[k] for k in range(len(xs))])
 
     def _preprocess_display(self, image):
-        start = time.time()
-        image = self._rotate_image(image)
-        end = time.time()
-        print(f"Rotation took {end-start}s")
-        start = time.time()
+        image = self._rotate_image(image) # Todo: This is very slow, remove or change.
         image = self._crop_image(image)
-        end = time.time()
-        print(f"Cropping took {end-start}s")
-        start = time.time()
         image = self._threshold_image(image)
-        end = time.time()
-        print(f"Thresholding took {end-start}s")
-        start = time.time()
         image = self._strip_center(image)
-        end = time.time()
-        print(f"Stripping took {end-start}s")
         return image
 
     def _rotate_image(self, image):
