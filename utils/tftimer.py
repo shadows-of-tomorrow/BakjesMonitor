@@ -18,14 +18,14 @@ class TFTimer:
     def _time_h5_model(self, x_dummy):
         for k in range(self.n_iterations):
             start = time.time()
-            self.digit_clf(x_dummy)
+            y = self.digit_clf(x_dummy)
             end = time.time()
             print(f"h5 model pt {k} took {round(end - start, 7)}s")
 
     def _time_lite_model(self, x_dummy):
         for k in range(self.n_iterations):
             start = time.time()
-            self._call_lite_model(x_dummy)
+            y = self._call_lite_model(x_dummy)
             end = time.time()
             print(f"Lite model pt {k} took {round(end - start, 7)}s")
 

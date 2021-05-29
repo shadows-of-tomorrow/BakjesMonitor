@@ -30,6 +30,14 @@ class DisplayProcessor:
         digits_clean = self._sort_and_group_digits(digits_raw)
         return digits_clean
 
+    def _call_classifier(self, x):
+        input_details = self.digit_clf.get_input_details()
+        output_details = self.digit_clf.get_output_details()
+        self.digit_clf.set_tensor(input_details[0]['index'], x)
+        self.digit_clf.invoke()
+        output_data = self.digit_clf.get_tensor(output_details[0]['index'])
+        return output_data
+
     def _find_digits(self, display):
         digits = []
         display = self._preprocess_display(display)
@@ -43,7 +51,7 @@ class DisplayProcessor:
                     roi = cv2.resize(roi, (self.digit_shape, self.digit_shape)) / 255.0
                     roi = roi.reshape((1, self.digit_shape, self.digit_shape, 1))
                     roi = np.float32(roi)
-                    digit_pred = self.digit_clf.predict(roi)
+                    digit_pred = self._call_classifier(roi)
                     if np.max(digit_pred) >= self.prediction_threshold:
                         digit = np.argmax(digit_pred)
                         digits.append([digit, x, y])
@@ -148,4 +156,6 @@ class DisplayProcessor:
 
     @staticmethod
     def _load_digit_classifier():
-        return tf.keras.models.load_model('./models/digits_nn')
+        interpreter = tf.lite.Interpreter("./models/digits_nn_lite.tflite")
+        interpreter.allocate_tensors()
+        return interpreter
