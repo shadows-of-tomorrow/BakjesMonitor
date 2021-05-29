@@ -41,11 +41,11 @@ class DisplayProcessor:
 
     def _find_digits(self, display):
         digits = []
-        start = time.time()
         display = self._preprocess_display(display)
-        end = time.time()
-        print(f"Preprocessing takes {end-start}s")
+        start = time.time()
         contours = self._find_contours(display)
+        end = time.time()
+        print(f"Finding contours takes {end-start}s")
         for cnt in contours:
             cnt_area = cv2.contourArea(cnt)
             if self.min_contour_area < cnt_area < self.max_contour_area:
@@ -129,7 +129,10 @@ class DisplayProcessor:
         return image
 
     def _rotate_image(self, image):
-        return scipy.ndimage.rotate(image, self.rotation_degrees)
+        if self.rotation_degrees != 0:
+            return scipy.ndimage.rotate(image, self.rotation_degrees)
+        else:
+            return image
 
     @staticmethod
     def _threshold_image(image):
