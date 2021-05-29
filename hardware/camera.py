@@ -9,7 +9,7 @@ class Camera:
         self.camera = self._initialize_camera()
 
     def _initialize_camera(self):
-        camera = picamera.PiCamera(resolution=self.resolution, framerate=90)
+        camera = picamera.PiCamera(resolution=self.resolution)
         return camera
 
     def capture(self):
