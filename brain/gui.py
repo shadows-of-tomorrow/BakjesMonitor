@@ -15,7 +15,7 @@ class GUI:
         self.main_window = tk.Tk()
 
         # Configure window settings.
-        self.main_window.title("Bakjes Monitor v1.0")
+        self.main_window.title("Bakjes Monitor v2.0")
         self.main_window.geometry("800x480")
         self.main_window.configure(bg='white')
 

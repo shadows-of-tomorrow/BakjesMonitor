@@ -17,11 +17,7 @@
     },
     "engine": {
         "alarm_time": 8.0,
-        "lanes": [
-            "top_left",
-            "top_right",
-            "bottom_left"
-        ],
+        "lanes": ["top_left"],
         "step_time": 0.3,
         "stop_steps": 4
     }
