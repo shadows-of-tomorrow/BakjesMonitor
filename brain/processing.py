@@ -41,10 +41,7 @@ class DisplayProcessor:
 
     def _find_digits(self, display):
         digits = []
-        start = time.time()
         display = self._preprocess_display(display)
-        end = time.time()
-        print(f"Preprocessing display took: {end-start}s")
         contours = self._find_contours(display)
         for cnt in contours:
             cnt_area = cv2.contourArea(cnt)
@@ -122,10 +119,22 @@ class DisplayProcessor:
         return np.argmax([xs[k] + ys[k] for k in range(len(xs))])
 
     def _preprocess_display(self, image):
+        start = time.time()
         image = self._rotate_image(image)
+        end = time.time()
+        print(f"Rotation took {end-start}s")
+        start = time.time()
         image = self._crop_image(image)
+        end = time.time()
+        print(f"Cropping took {end-start}s")
+        start = time.time()
         image = self._threshold_image(image)
+        end = time.time()
+        print(f"Thresholding took {end-start}s")
+        start = time.time()
         image = self._strip_center(image)
+        end = time.time()
+        print(f"Stripping took {end-start}s")
         return image
 
     def _rotate_image(self, image):
