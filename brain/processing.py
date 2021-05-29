@@ -28,7 +28,9 @@ class DisplayProcessor:
 
     def extract_digits(self, display):
         digits_raw = self._find_digits(display)
+        print(f"Raw digits: {digits_raw}")
         digits_clean = self._sort_and_group_digits(digits_raw)
+        print(f"Clean digits: {digits_clean}")
         return digits_clean
 
     def _call_classifier(self, x):

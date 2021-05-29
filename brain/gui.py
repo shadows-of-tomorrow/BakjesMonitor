@@ -38,19 +38,19 @@ class GUI:
 
         # Add "top left" lane monitor.
         top_left_label = tk.Label(self.main_window, text="--", font=("Arial", 40), bg="white", fg="black", borderwidth=2, relief="solid", width=3)
-        top_left_label.place(x=100+180, y=120+40)
+        top_left_label.place(x=100+180, y=120+20)
 
         # Add "top right" lane monitor.
         top_right_label = tk.Label(self.main_window, text="--", font=("Arial", 40), bg="white", fg="black", borderwidth=2, relief="solid", width=3)
-        top_right_label.place(x=220+180, y=120+40)
+        top_right_label.place(x=220+180, y=120+20)
 
         # Add "bottom left" lane monitor.
         bottom_left_label = tk.Label(self.main_window, text="--", font=("Arial", 40), bg="white", fg="black", borderwidth=2, relief="solid", width=3)
-        bottom_left_label.place(x=100+180, y=200+40)
+        bottom_left_label.place(x=100+180, y=200+20)
 
         # Add "bottom right" lane monitor.
         bottom_right_label = tk.Label(self.main_window, text="--", font=("Arial", 40), bg="white", fg="black", borderwidth=2, relief="solid", width=3)
-        bottom_right_label.place(x=220+180, y=200+40)
+        bottom_right_label.place(x=220+180, y=200+20)
 
         # Add status label.
         monitoring_text = tk.Label(self.main_window, text="Status:", bg="white", font=("Arial", 18))
