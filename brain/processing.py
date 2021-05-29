@@ -1,5 +1,6 @@
 import cv2
 import json
+import time
 import scipy.ndimage
 import numpy as np
 import tensorflow as tf
@@ -40,7 +41,10 @@ class DisplayProcessor:
 
     def _find_digits(self, display):
         digits = []
+        start = time.time()
         display = self._preprocess_display(display)
+        end = time.time()
+        print(f"Preprocessing display took: {end-start}s")
         contours = self._find_contours(display)
         for cnt in contours:
             cnt_area = cv2.contourArea(cnt)
