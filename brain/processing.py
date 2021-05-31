@@ -28,9 +28,7 @@ class DisplayProcessor:
 
     def extract_digits(self, display):
         digits_raw = self._find_digits(display)
-        print(f"Raw digits: {digits_raw}")
         digits_clean = self._sort_and_group_digits(digits_raw)
-        print(f"Clean digits: {digits_clean}")
         return digits_clean
 
     def _call_classifier(self, x):
@@ -73,20 +71,9 @@ class DisplayProcessor:
             digits_tr = self._group_digits_around_idx(digits, tr)
             digits_bl = self._group_digits_around_idx(digits, bl)
             digits_br = self._group_digits_around_idx(digits, br)
-            digits_grouped = {
-                'top_left': digits_tl,
-                'top_right': digits_tr,
-                'bottom_left': digits_bl,
-                'bottom_right': digits_br
-            }
-            return digits_grouped
+            return {'top_left': digits_tl, 'top_right': digits_tr, 'bottom_left': digits_bl, 'bottom_right': digits_br}
         else:
-            return {
-                'top_left': 99,
-                'top_right': 99,
-                'bottom_left': 99,
-                'bottom_right': 99
-            }
+            return {'top_left': 99, 'top_right': 99, 'bottom_left': 99, 'bottom_right': 99}
 
     def _group_digits_around_idx(self, digits, idx):
         digit_ref = digits[idx]
@@ -151,7 +138,8 @@ class DisplayProcessor:
         return image
 
     def _crop_image(self, image):
-        image_cropped = image[self.crop_top_pixels:-self.crop_bottom_pixels, self.crop_left_pixels:-self.crop_right_pixels]
+        image_cropped = image[self.crop_top_pixels:-self.crop_bottom_pixels,
+                        self.crop_left_pixels:-self.crop_right_pixels]
         return image_cropped
 
     @staticmethod

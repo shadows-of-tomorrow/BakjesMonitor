@@ -128,37 +128,35 @@ class GUI:
 
         # Add wait time entry.
         wait_time_label = tk.Label(settings_window, text="Alarm Time:")
-        wait_time_label.place(x=10, y=30)
+        wait_time_label.place(x=10, y=10)
         wait_time_entry = tk.Entry(settings_window)
-        wait_time_entry.place(x=100, y=30)
+        wait_time_entry.place(x=100, y=10)
 
         # Add step time entry.
         step_time_label = tk.Label(settings_window, text="Step Time:")
-        step_time_label.place(x=10, y=60)
+        step_time_label.place(x=10, y=40)
         step_time_entry = tk.Entry(settings_window)
-        step_time_entry.place(x=100, y=60)
+        step_time_entry.place(x=100, y=40)
 
         # Add stop steps entry.
         stop_steps_label = tk.Label(settings_window, text="Stop Steps:")
-        stop_steps_label.place(x=10, y=90)
+        stop_steps_label.place(x=10, y=70)
         stop_steps_entry = tk.Entry(settings_window)
-        stop_steps_entry.place(x=100, y=90)
+        stop_steps_entry.place(x=100, y=70)
 
         # Add lane checkboxes.
-        lane_label = tk.Label(settings_window, text="Lanes:")
-        lane_label.place(x=10, y=140)
         top_left_var = tk.IntVar()
         top_left_box = tk.Checkbutton(settings_window, text="Top Left", variable=top_left_var)
-        top_left_box.place(x=100, y=140)
+        top_left_box.place(x=10, y=100)
         top_right_var = tk.IntVar()
         top_right_box = tk.Checkbutton(settings_window, text="Top Right", variable=top_right_var)
-        top_right_box.place(x=100, y=160)
+        top_right_box.place(x=10, y=120)
         bottom_left_var = tk.IntVar()
         bottom_left_box = tk.Checkbutton(settings_window, text="Bottom Left", variable=bottom_left_var)
-        bottom_left_box.place(x=100, y=180)
+        bottom_left_box.place(x=10, y=140)
         bottom_right_var = tk.IntVar()
         bottom_right_box = tk.Checkbutton(settings_window, text="Bottom Right", variable=bottom_right_var)
-        bottom_right_box.place(x=100, y=200)
+        bottom_right_box.place(x=10, y=160)
 
         # Store settings function.
         def _store_settings():
@@ -202,7 +200,7 @@ class GUI:
         store_button_img = tk.PhotoImage(file="./img/icons/check.png")
         store_button = tk.Button(settings_window, command=_store_settings, image=store_button_img)
         store_button.image = store_button_img
-        store_button.place(x=250, y=250)
+        store_button.place(x=120, y=140)
 
         settings_window.mainloop()
 
