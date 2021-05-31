@@ -8,13 +8,13 @@ class GUI:
     def __init__(self, engine):
         self.engine = engine
         self.config_path = "./config/config.json"
-        self.h = 400
-        self.w = 800
         self._construct_main_window()
 
     def _construct_main_window(self):
         # Construct main window.
         self.main_window = tk.Tk()
+        self.w = self.main_window.winfo_screenwidth()
+        self.h = self.main_window.winfo_screenheight()
 
         # Configure window settings.
         self.main_window.title("Bakjes Monitor v2.0")
