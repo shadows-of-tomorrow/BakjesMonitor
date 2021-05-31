@@ -13,8 +13,8 @@ class GUI:
     def _construct_main_window(self):
         # Construct main window.
         self.main_window = tk.Tk()
-        self.w = self.main_window.winfo_screenwidth()
-        self.h = self.main_window.winfo_screenheight()
+        self.w = 700
+        self.h = 400
 
         # Configure window settings.
         self.main_window.title("Bakjes Monitor v2.0")
@@ -198,9 +198,9 @@ class GUI:
 
         # Add store settings button.
         store_button_img = tk.PhotoImage(file="./img/icons/check.png")
-        store_button = tk.Button(settings_window, command=_store_settings, image=store_button_img, height=40, width=40)
+        store_button = tk.Button(settings_window, command=_store_settings, image=store_button_img, height=50, width=50, bg='white')
         store_button.image = store_button_img
-        store_button.place(x=150, y=120)
+        store_button.place(x=170, y=120)
 
         settings_window.mainloop()
 
