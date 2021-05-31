@@ -198,7 +198,7 @@ class GUI:
 
         # Add store settings button.
         store_button_img = tk.PhotoImage(file="./img/icons/check.png")
-        store_button = tk.Button(settings_window, command=_store_settings, image=store_button_img, height=20, width=20)
+        store_button = tk.Button(settings_window, command=_store_settings, image=store_button_img, height=40, width=40)
         store_button.image = store_button_img
         store_button.place(x=150, y=120)
 
