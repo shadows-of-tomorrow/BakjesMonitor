@@ -67,10 +67,22 @@ class GUI:
         # Add dynamic updating.
         def update_values():
             # Update digits.
-            top_left_label['text'] = self._digit_to_str(self.engine.digits_old['top_left'])
-            top_right_label['text'] = self._digit_to_str(self.engine.digits_old['top_right'])
-            bottom_left_label['text'] = self._digit_to_str(self.engine.digits_old['bottom_left'])
-            bottom_right_label['text'] = self._digit_to_str(self.engine.digits_old['bottom_right'])
+            if 'top_left' in self.engine.lanes:
+                top_left_label['text'] = self._digit_to_str(self.engine.digits_old['top_left'])
+            else:
+                top_left_label['text'] = '--'
+            if 'top_right' in self.engine.lanes:
+                top_right_label['text'] = self._digit_to_str(self.engine.digits_old['top_right'])
+            else:
+                top_right_label['text'] = '--'
+            if 'bottom_left' in self.engine.lanes:
+                bottom_left_label['text'] = self._digit_to_str(self.engine.digits_old['bottom_left'])
+            else:
+                bottom_left_label['text'] = '--'
+            if 'bottom_right' in self.engine.lanes:
+                bottom_right_label['text'] = self._digit_to_str(self.engine.digits_old['bottom_right'])
+            else:
+                bottom_right_label['text'] = '--'
 
             # Update status.
             if not self.engine.looping:
