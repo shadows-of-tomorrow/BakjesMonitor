@@ -15,7 +15,6 @@ class RectangleHelper:
         self.rectangles = []
         self._draw_rectangles()
         self._store_rectangles()
-        print(self.rectangles, self.top_offset, self.bottom_offset)
         return self.rectangles
 
     def _set_offsets(self):
