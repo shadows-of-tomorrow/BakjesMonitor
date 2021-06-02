@@ -36,8 +36,6 @@ class DisplayProcessor:
         display = self._preprocess_display(img)
         for rectangle in self.rectangles:
             disp_rect = self._extract_rectangle(display, rectangle)
-            cv2.imshow('e', disp_rect)
-            cv2.waitKey(0)
             contours = self._find_contours(disp_rect)
             for cnt in contours:
                 cnt_area = cv2.contourArea(cnt)
