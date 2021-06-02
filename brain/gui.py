@@ -9,7 +9,6 @@ class GUI:
     def __init__(self, engine):
         self.engine = engine
         self.config_path = "./config/config.json"
-        self.rectangle_helper = RectangleHelper()
         self._construct_main_window()
 
     def _construct_main_window(self):
@@ -246,7 +245,7 @@ class GUI:
 
     def crop(self):
         self.engine.looping = False
-        rectangles = self.rectangle_helper.run()
+        rectangles = RectangleHelper(camera=self.engine.camera).run()
         self.engine.display_processor.rectangles = rectangles
 
     def run(self):

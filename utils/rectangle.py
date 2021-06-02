@@ -1,12 +1,11 @@
 import json
 import cv2
-from hardware.camera import Camera
 
 
 class RectangleHelper:
 
-    def __init__(self):
-        self.camera = Camera()
+    def __init__(self, camera):
+        self.camera = camera
         self.window_name = "Draw Contours"
         self.config_path = './config/config.json'
         self.rectangles = []
