@@ -45,7 +45,7 @@ class RectangleHelper:
         cv2.setMouseCallback(self.window_name, self.draw_rectangle)
         cv2.imshow(self.window_name, self.img)
 
-        while cv2.getWindowProperty(self.window_name, 0) >= 0:
+        while True:
             if cv2.waitKey(10) != -1:
                 break
             try:
