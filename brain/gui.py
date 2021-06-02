@@ -56,15 +56,15 @@ class GUI:
 
         # Add status label.
         monitoring_text = tk.Label(self.main_window, text="Status:", bg="white", font=("Arial", 18))
-        monitoring_text.place(x=40, y=self.h-50)
+        monitoring_text.place(x=40, y=self.h-10)
         monitoring_label = tk.Label(self.main_window, text="Paused", fg="red", bg="white", font=("Arial", 18))
-        monitoring_label.place(x=130, y=self.h-50)
+        monitoring_label.place(x=130, y=self.h-10)
 
         # Add alarm label.
         alarm_text = tk.Label(self.main_window, text="Alarm:", bg="white", font=("Arial", 18))
-        alarm_text.place(x=40, y=self.h-80)
+        alarm_text.place(x=40, y=self.h-40)
         alarm_label = tk.Label(self.main_window, text="Off", fg="green", bg="white", font=("Arial", 18))
-        alarm_label.place(x=130, y=self.h-80)
+        alarm_label.place(x=130, y=self.h-40)
 
         # Add dynamic updating.
         def update_values():
@@ -117,25 +117,25 @@ class GUI:
         # Add crop button.
         crop_button_img = tk.PhotoImage(file="./img/icons/crop.png")
         crop_button = tk.Button(self.main_window, command=self.crop, image=crop_button_img, bg='white', height=50, width=50)
-        crop_button.place(x=510, y=self.h-70)
+        crop_button.place(x=510, y=self.h-30)
         crop_button.image = crop_button_img
 
         # Add settings button.
         settings_button_img = tk.PhotoImage(file="./img/icons/settings.png")
         settings_button = tk.Button(self.main_window, command=self.settings, image=settings_button_img, bg='white', height=50, width=50)
-        settings_button.place(x=570, y=self.h-70)
+        settings_button.place(x=570, y=self.h-30)
         settings_button.image = settings_button_img
 
         # Add pause button.
         pause_button_img = tk.PhotoImage(file="./img/icons/pause.png")
         pause_button = tk.Button(self.main_window, command=self.pause, image=pause_button_img, bg='white', height=50, width=50)
-        pause_button.place(x=630, y=self.h-70)
+        pause_button.place(x=630, y=self.h-30)
         pause_button.image = pause_button_img
 
         # Add play button.
         play_button_img = tk.PhotoImage(file="./img/icons/play.png")
         play_button = tk.Button(self.main_window, command=self.play, image=play_button_img, bg='white', height=50, width=50)
-        play_button.place(x=690, y=self.h-70)
+        play_button.place(x=690, y=self.h-30)
         play_button.image = play_button_img
 
     def _construct_settings_window(self):
