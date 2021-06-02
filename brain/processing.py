@@ -1,7 +1,5 @@
 import cv2
 import json
-import time
-import scipy.ndimage
 import numpy as np
 import tensorflow as tf
 
@@ -17,13 +15,7 @@ class DisplayProcessor:
         self.max_contour_area = self.config['MAX_CONTOUR_AREA']
         self.cluster_threshold = self.config['CLUSTER_THRESHOLD']
         self.prediction_threshold = self.config['PREDICTION_THRESHOLD']
-        self.crop_bottom_pixels = self.config['CROP_BOTTOM_PIXELS']
-        self.crop_top_pixels = self.config['CROP_TOP_PIXELS']
-        self.crop_right_pixels = self.config['CROP_RIGHT_PIXELS']
-        self.crop_left_pixels = self.config['CROP_LEFT_PIXELS']
-        self.white_strip_right = self.config['WHITE_STRIP_RIGHT']
-        self.white_strip_left = self.config['WHITE_STRIP_LEFT']
-        self.rotation_degrees = self.config['ROTATION_DEGREES']
+        self.rectangles = self.config['RECTANGLES']
         self.digit_clf = self._load_digit_classifier()
 
     def extract_digits(self, display):
@@ -39,20 +31,22 @@ class DisplayProcessor:
         output_data = self.digit_clf.get_tensor(output_details[0]['index'])
         return output_data
 
-    def _find_digits(self, display):
+    def _find_digits(self, img):
         digits = []
-        display = self._preprocess_display(display)
-        contours = self._find_contours(display)
-        for cnt in contours:
-            cnt_area = cv2.contourArea(cnt)
-            if self.min_contour_area < cnt_area < self.max_contour_area:
-                [x, y, w, h] = cv2.boundingRect(cnt)
-                if self.rel_width_low < h / w <= self.rel_width_high:
-                    roi = self._extract_roi(display, x, y, w, h)
-                    y_clf = self._call_classifier(roi)
-                    if np.max(y_clf) >= self.prediction_threshold:
-                        digit = np.argmax(y_clf)
-                        digits.append([digit, x, y])
+        display = self._preprocess_display(img)
+        for rectangle in self.rectangles:
+            disp_rect = self._extract_rectangle(display, rectangle)
+            contours = self._find_contours(disp_rect)
+            for cnt in contours:
+                cnt_area = cv2.contourArea(cnt)
+                if self.min_contour_area < cnt_area < self.max_contour_area:
+                    [x, y, w, h] = cv2.boundingRect(cnt)
+                    if self.rel_width_low < h / w <= self.rel_width_high:
+                        roi = self._extract_roi(disp_rect, x, y, w, h)
+                        y_clf = self._call_classifier(roi)
+                        if np.max(y_clf) >= self.prediction_threshold:
+                            digit = np.argmax(y_clf)
+                            digits.append([digit, rectangle[0]+x, rectangle[1]+y])
         return digits
 
     def _extract_roi(self, display, x, y, w, h):
@@ -113,16 +107,7 @@ class DisplayProcessor:
 
     def _preprocess_display(self, image):
         image = self._threshold_image(image)
-        image = self._crop_image(image)
-        image = self._strip_center(image)
-        image = self._rotate_image(image)
         return image
-
-    def _rotate_image(self, image):
-        if self.rotation_degrees != 0:
-            return scipy.ndimage.rotate(image, self.rotation_degrees)
-        else:
-            return image
 
     @staticmethod
     def _threshold_image(image):
@@ -132,15 +117,13 @@ class DisplayProcessor:
         image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
         return image
 
-    def _strip_center(self, image):
-        img_center = int(image.shape[1] / 2)
-        image[:, img_center - self.white_strip_left:img_center + self.white_strip_right] = 255.0
-        return image
-
-    def _crop_image(self, image):
-        image_cropped = image[self.crop_top_pixels:-self.crop_bottom_pixels,
-                        self.crop_left_pixels:-self.crop_right_pixels]
-        return image_cropped
+    @staticmethod
+    def _extract_rectangle(display, rectangle):
+        x = rectangle[0]
+        y = rectangle[1]
+        w = rectangle[2]
+        h = rectangle[3]
+        return display[y:y+h, x:x+w]
 
     @staticmethod
     def _find_contours(image):

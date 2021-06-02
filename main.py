@@ -1,7 +1,6 @@
 import argparse
 from brain.gui import GUI
 from brain.engine import Engine
-from utils.cropping import CropHelper
 
 
 def parse_args():
@@ -18,8 +17,6 @@ def main():
         GUI(engine=Engine()).run()
     elif run_mode == 'engine':
         Engine().run()
-    elif run_mode == 'cropping':
-        CropHelper().run()
     else:
         raise Exception(f"Run mode {run_mode} not recognized!")
 

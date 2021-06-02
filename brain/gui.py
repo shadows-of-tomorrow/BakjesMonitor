@@ -1,6 +1,7 @@
 import json
 import threading
 import tkinter as tk
+from utils.rectangle import RectangleHelper
 
 
 class GUI:
@@ -8,6 +9,7 @@ class GUI:
     def __init__(self, engine):
         self.engine = engine
         self.config_path = "./config/config.json"
+        self.rectangle_helper = RectangleHelper()
         self._construct_main_window()
 
     def _construct_main_window(self):
@@ -20,6 +22,7 @@ class GUI:
         self.main_window.title("Bakjes Monitor v2.0")
         self.main_window.geometry(f"{self.h}x{self.w}")
         self.main_window.configure(bg='white')
+        self.main_window.attributes('-fullscreen', True)
 
         # Add alu baba logo.
         background_img = tk.PhotoImage(file="./img/icons/alubaba.png")
@@ -27,14 +30,14 @@ class GUI:
         background_label.place(x=10, y=10)
         background_label.image = background_img
 
-        # Add shadows of tomorrow logo.
-        background_img = tk.PhotoImage(file="./img/icons/shdws80.png")
-        background_label = tk.Label(self.main_window, image=background_img, bg='white')
-        background_label.place(x=self.w-100, y=25)
-        background_label.image = background_img
-
         # Add buttons to main window.
         self._add_buttons()
+
+        # Add "exit" button.
+        settings_button_img = tk.PhotoImage(file="./img/icons/exit.png")
+        settings_button = tk.Button(self.main_window, command=self.exit, image=settings_button_img, bg='white', height=50, width=50)
+        settings_button.place(x=self.w-10, y=20)
+        settings_button.image = settings_button_img
 
         # Add "top left" lane monitor.
         top_left_label = tk.Label(self.main_window, text="--", font=("Arial", 40), bg="white", fg="black", borderwidth=2, relief="solid", width=3)
@@ -111,6 +114,12 @@ class GUI:
             return str(digit)
 
     def _add_buttons(self):
+
+        # Add crop button.
+        crop_button_img = tk.PhotoImage(file="./img/icons/crop.png")
+        crop_button = tk.Button(self.main_window, command=self.crop, image=crop_button_img, bg='white', height=50, width=50)
+        crop_button.place(x=510, y=self.h-70)
+        crop_button.image = crop_button_img
 
         # Add settings button.
         settings_button_img = tk.PhotoImage(file="./img/icons/settings.png")
@@ -227,9 +236,18 @@ class GUI:
     def pause(self):
         self.engine.looping = False
 
+    def exit(self):
+        self.engine.looping = False
+        self.main_window.destroy()
+
     def settings(self):
         self.engine.looping = False
         self._construct_settings_window()
+
+    def crop(self):
+        self.engine.looping = False
+        rectangles = self.rectangle_helper.run()
+        self.engine.display_processor.rectangles = rectangles
 
     def run(self):
         self.main_window.mainloop()
