@@ -1,9 +1,9 @@
 [Desktop Entry]
 Name=Bakjes Monitor
-Comment=My application which does this
+Comment=
 Icon=/usr/share/pixmaps/openbox.xpm
 Exec=/home/pi/Projects/factory-pi/main.sh
 Type=Application
 Encoding=UTF-8
 Terminal=true
-Categories=None;
+Categories=None
