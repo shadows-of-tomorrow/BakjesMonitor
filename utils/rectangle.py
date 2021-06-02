@@ -44,11 +44,8 @@ class RectangleHelper:
         cv2.setMouseCallback(self.window_name, self.draw_rectangle)
         cv2.imshow(self.window_name, self.img)
 
-        while True:
-            key = cv2.waitKey(10)
-            if key != -1:
-                break
-            if cv2.getWindowProperty(self.window_name, cv2.WND_PROP_VISIBLE) < 1:
+        while cv2.getWindowProperty(self.window_name, 0) >= 0:
+            if cv2.waitKey(10) != -1:
                 break
 
         cv2.destroyAllWindows()
