@@ -24,14 +24,14 @@ class GUI:
     def _construct_main_window(self):
         # Construct main window.
         self.main_window = tk.Tk()
-        self.w = 700
+        self.w = 800
         self.h = 400
 
         # Configure window settings.
         self.main_window.title("Bakjes Monitor v2.0")
         self.main_window.geometry(f"{self.w}x{self.h}")
         self.main_window.configure(bg='white')
-        self.main_window.resizable(width=None, height=None)
+        self.main_window.resizable(0, 0)
 
         # Add alu baba logo.
         background_img = tk.PhotoImage(file=self.icon_path+"/alubaba.png")
