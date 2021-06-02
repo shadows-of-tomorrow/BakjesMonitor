@@ -8,6 +8,7 @@ class RectangleHelper:
         self.camera = camera
         self.window_name = "Draw Contours"
         self.config_path = './config/config.json'
+        self._set_offsets()
         self.rectangles = []
 
     def run(self):
@@ -16,17 +17,25 @@ class RectangleHelper:
         self._store_rectangles()
         return self.rectangles
 
-    def _store_rectangles(self):
+    def _set_offsets(self):
+        config = self._load_config()
+        self.top_offset = config["rectangle_helper"]["top_offset"]
+        self.bottom_offset = config["rectangle_helper"]["bottom_offset"]
+
+    def _load_config(self):
         with open(self.config_path, 'r') as file:
-            config = json.load(file)
+            return json.load(file)
+
+    def _store_rectangles(self):
+        config = self._load_config()
         config["display_processor"]["RECTANGLES"] = self.rectangles
         with open(self.config_path, 'w') as file:
             json.dump(config, file, indent=4, sort_keys=True)
 
     def _draw_rectangles(self):
 
-        self.base_img = self.camera.capture()
         self.img = self.camera.capture()
+        self.img = self.img[self.top_offset:self.bottom_offset, :]
         self.ix = -1
         self.iy = -1
         self.drawing = False
@@ -76,4 +85,4 @@ class RectangleHelper:
     def _store_contour(self, x, y):
         w = x - self.ix
         h = y - self.iy
-        self.rectangles.append([self.ix, self.iy, w, h])
+        self.rectangles.append([self.ix, self.iy+self.top_offset, w, h])

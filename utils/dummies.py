@@ -66,7 +66,6 @@ class DummyEngine:
     def _get_digits(self):
         display = self.camera.capture()
         digits = self.display_processor.extract_digits(display)
-        print(digits)
         return digits
 
     def _update_counters(self, digits_old, digits_new):
