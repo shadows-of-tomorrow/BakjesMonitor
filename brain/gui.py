@@ -21,6 +21,7 @@ class GUI:
         self.main_window.title("Bakjes Monitor v2.0")
         self.main_window.geometry(f"{self.h}x{self.w}")
         self.main_window.configure(bg='white')
+        self.main_window.resizable(width=None, height=None)
 
         # Add alu baba logo.
         background_img = tk.PhotoImage(file="./img/icons/alubaba.png")

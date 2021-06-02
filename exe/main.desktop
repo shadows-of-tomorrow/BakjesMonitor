@@ -1,6 +1,6 @@
 [Desktop Entry]
-Version=1.0
 Name=Bakjes Monitor
 Icon=/usr/share/pixmaps/openbox.xpm
 Exec=/home/pi/Projects/factory-pi/main.sh
 Type=Application
+Terminal=true
