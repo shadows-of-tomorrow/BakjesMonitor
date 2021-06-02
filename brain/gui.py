@@ -19,7 +19,7 @@ class GUI:
 
     def _get_icon_path(self):
         dir_path = os.path.dirname(os.path.dirname(__file__))
-        return os.path.join(dir_path, 'img', 'icon')
+        return os.path.join(dir_path, 'img', 'icons')
 
     def _construct_main_window(self):
         # Construct main window.
