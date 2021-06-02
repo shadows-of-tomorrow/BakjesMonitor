@@ -1,4 +1,5 @@
 import json
+import os
 import threading
 import tkinter as tk
 from utils.rectangle import RectangleHelper
@@ -8,8 +9,17 @@ class GUI:
 
     def __init__(self, engine):
         self.engine = engine
-        self.config_path = "./config/config.json"
+        self.config_path = self._get_config_path()
+        self.icon_path = self._get_icon_path()
         self._construct_main_window()
+
+    def _get_config_path(self):
+        dir_path = os.path.dirname(os.path.dirname(__file__))
+        return os.path.join(dir_path, 'config', 'config.json')
+
+    def _get_icon_path(self):
+        dir_path = os.path.dirname(__file__)
+        return os.path.join(dir_path, 'img', 'icon')
 
     def _construct_main_window(self):
         # Construct main window.
@@ -24,7 +34,7 @@ class GUI:
         self.main_window.resizable(width=None, height=None)
 
         # Add alu baba logo.
-        background_img = tk.PhotoImage(file="./img/icons/alubaba.png")
+        background_img = tk.PhotoImage(file=self.icon_path+"alubaba.png")
         background_label = tk.Label(self.main_window, image=background_img, bg='white')
         background_label.place(x=10, y=10)
         background_label.image = background_img
@@ -109,25 +119,25 @@ class GUI:
     def _add_buttons(self):
 
         # Add crop button.
-        crop_button_img = tk.PhotoImage(file="./img/icons/crop.png")
+        crop_button_img = tk.PhotoImage(file=self.icon_path+"crop.png")
         crop_button = tk.Button(self.main_window, command=self.crop, image=crop_button_img, bg='white', height=50, width=50)
         crop_button.place(x=510, y=self.h-70)
         crop_button.image = crop_button_img
 
         # Add settings button.
-        settings_button_img = tk.PhotoImage(file="./img/icons/settings.png")
+        settings_button_img = tk.PhotoImage(file=self.icon_path+"settings.png")
         settings_button = tk.Button(self.main_window, command=self.settings, image=settings_button_img, bg='white', height=50, width=50)
         settings_button.place(x=570, y=self.h-70)
         settings_button.image = settings_button_img
 
         # Add pause button.
-        pause_button_img = tk.PhotoImage(file="./img/icons/pause.png")
+        pause_button_img = tk.PhotoImage(file=self.icon_path+"pause.png")
         pause_button = tk.Button(self.main_window, command=self.pause, image=pause_button_img, bg='white', height=50, width=50)
         pause_button.place(x=630, y=self.h-70)
         pause_button.image = pause_button_img
 
         # Add play button.
-        play_button_img = tk.PhotoImage(file="./img/icons/play.png")
+        play_button_img = tk.PhotoImage(file=self.icon_path+"play.png")
         play_button = tk.Button(self.main_window, command=self.play, image=play_button_img, bg='white', height=50, width=50)
         play_button.place(x=690, y=self.h-70)
         play_button.image = play_button_img
@@ -211,7 +221,7 @@ class GUI:
             settings_window.destroy()
 
         # Add store settings button.
-        store_button_img = tk.PhotoImage(file="./img/icons/check.png")
+        store_button_img = tk.PhotoImage(file=self.icon_path+"check.png")
         store_button = tk.Button(settings_window, command=_store_settings, image=store_button_img, height=50, width=50, bg='white')
         store_button.image = store_button_img
         store_button.place(x=170, y=120)

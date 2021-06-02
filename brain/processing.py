@@ -134,18 +134,19 @@ class DisplayProcessor:
 
     def _load_config(self):
         config_path = self._get_config_path()
-        print(config_path)
         with open(config_path, 'r') as file:
             return json.load(file)['display_processor']
 
     def _get_config_path(self):
-        dir_path = os.path.dirname(sys.argv[0])
+        dir_path = os.path.dirname(os.path.dirname(__file__))
         return os.path.join(dir_path, 'config', 'config.json')
 
+    def _get_model_path(self):
+        dir_path = os.path.dirname(os.path.dirname(__file__))
+        return os.path.join(dir_path, 'models', 'digits_nn_lite.tflite')
 
-
-    @staticmethod
-    def _load_digit_classifier():
-        interpreter = tf.lite.Interpreter("./models/digits_nn_lite.tflite")
+    def _load_digit_classifier(self):
+        model_path = self._get_model_path()
+        interpreter = tf.lite.Interpreter(model_path)
         interpreter.allocate_tensors()
         return interpreter

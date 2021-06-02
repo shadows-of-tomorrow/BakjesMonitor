@@ -1,5 +1,6 @@
 import time
 import json
+import os
 from hardware.alarm import Alarm
 from hardware.camera import Camera
 from .processing import DisplayProcessor
@@ -75,7 +76,11 @@ class Engine:
         for key in self.counters.keys():
             self.counters[key] = 0
 
-    @staticmethod
-    def _load_config():
-        with open('./config/config.json', 'r') as file:
+    def _load_config(self):
+        config_path = self._get_config_path()
+        with open(config_path, 'r') as file:
             return json.load(file)['engine']
+
+    def _get_config_path(self):
+        dir_path = os.path.dirname(os.path.dirname(__file__))
+        return os.path.join(dir_path, 'config', 'config.json')

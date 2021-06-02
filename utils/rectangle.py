@@ -1,5 +1,6 @@
 import json
 import cv2
+import os
 
 
 class RectangleHelper:
@@ -7,7 +8,7 @@ class RectangleHelper:
     def __init__(self, camera):
         self.camera = camera
         self.window_name = "Draw Contours"
-        self.config_path = './config/config.json'
+        self.config_path = self._get_config_path()
         self._set_offsets()
         self.rectangles = []
 
@@ -85,3 +86,7 @@ class RectangleHelper:
         w = x - self.ix
         h = y - self.iy
         self.rectangles.append([self.ix, self.iy+self.top_offset, w, h])
+
+    def _get_config_path(self):
+        dir_path = os.path.dirname(os.path.dirname(__file__))
+        return os.path.join(dir_path, 'config', 'config.json')
