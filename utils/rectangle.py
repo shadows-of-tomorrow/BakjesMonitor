@@ -48,7 +48,7 @@ class RectangleHelper:
             key = cv2.waitKey(10)
             if key != -1:
                 break
-            if cv2.getWindowProperty('image', cv2.WND_PROP_VISIBLE) < 1:
+            if cv2.getWindowProperty(self.window_name, cv2.WND_PROP_VISIBLE) < 1:
                 break
 
         cv2.destroyAllWindows()
