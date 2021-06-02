@@ -20,6 +20,7 @@ class DisplayProcessor:
 
     def extract_digits(self, display):
         digits_raw = self._find_digits(display)
+        print(digits_raw)
         digits_clean = self._sort_and_group_digits(digits_raw)
         return digits_clean
 
