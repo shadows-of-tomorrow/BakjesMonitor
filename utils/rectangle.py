@@ -46,7 +46,7 @@ class RectangleHelper:
 
         while True:
             key = cv2.waitKey(10)
-            if key != -1 or cv2.getWindowProperty(self.window_name, 0) == -1:
+            if key != -1:
                 break
 
         cv2.destroyAllWindows()
