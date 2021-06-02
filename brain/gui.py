@@ -18,7 +18,7 @@ class GUI:
         return os.path.join(dir_path, 'config', 'config.json')
 
     def _get_icon_path(self):
-        dir_path = os.path.dirname(__file__)
+        dir_path = os.path.dirname(os.path.dirname(__file__))
         return os.path.join(dir_path, 'img', 'icon')
 
     def _construct_main_window(self):
