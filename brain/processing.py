@@ -1,4 +1,6 @@
 import cv2
+import os
+import sys
 import json
 import numpy as np
 import tensorflow as tf
@@ -130,10 +132,17 @@ class DisplayProcessor:
         contours, _ = cv2.findContours(image, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         return contours
 
-    @staticmethod
-    def _load_config():
-        with open('./config/config.json', 'r') as file:
+    def _load_config(self):
+        config_path = self._get_config_path()
+        print(config_path)
+        with open(config_path, 'r') as file:
             return json.load(file)['display_processor']
+
+    def _get_config_path(self):
+        dir_path = os.path.dirname(sys.argv[0])
+        return os.path.join(dir_path, 'config', 'config.json')
+
+
 
     @staticmethod
     def _load_digit_classifier():
