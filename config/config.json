@@ -2,9 +2,9 @@
     "display_processor": {
         "CLUSTER_THRESHOLD": 60.0,
         "DIGIT_SHAPE": 28,
-        "MAX_CONTOUR_AREA": 600,
-        "MIN_CONTOUR_AREA": 100,
-        "PREDICTION_THRESHOLD": 0.8,
+        "MAX_CONTOUR_AREA": 20000,
+        "MIN_CONTOUR_AREA": 50,
+        "PREDICTION_THRESHOLD": 0.4,
         "RECTANGLES": [
             [
                 111,

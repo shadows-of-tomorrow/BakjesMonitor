@@ -15,7 +15,7 @@ class Alarm:
 
     def _get_media_player(self):
         audio_path = self._get_audio_path()
-        return vlc.MediaPlayer(audio_path+'emergency_alarm_003.mpx')
+        return vlc.MediaPlayer(audio_path+'/emergency_alarm_003.mp3')
 
     def _get_audio_path(self):
         return os.path.join(os.path.dirname(os.path.dirname(__file__)), 'audio')
