@@ -1,6 +1,5 @@
 [Desktop Entry]
 Name=Bakjes Monitor
-Icon=/usr/share/pixmaps/openbox.xpm
-Exec=/home/pi/Projects/factory-pi/main.sh
+Exec=lxterminal -e '/home/pi/Projects/factory-pi/exe/main.sh'
 Type=Application
 Terminal=true

@@ -1,0 +1,2 @@
+Tensorflow 2.5.0: https://drive.google.com/uc?export=download&id=1iqylkLsgwHxB_nyZ1H4UmCY3Gy47qlOS
+OpenCV: https://www.piwheels.org/simple/opencv-contrib-python/opencv_contrib_python-4.5.2.52-cp37-cp37m-linux_armv7l.whl#sha256=143e713e04546ca2df086bb78451eeae723948e3dff0a40559dec55f6f825919
